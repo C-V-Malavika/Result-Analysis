@@ -216,9 +216,6 @@ def postresultdata(batch_year,semester,user_id):
         return column_names, data_dict, options, courses
 
 
-
-
-
 def download_post_excel(batch_year, semester):
 
         data_dict = {}

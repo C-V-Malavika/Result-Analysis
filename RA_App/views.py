@@ -25,8 +25,7 @@ def login(request):
 
         x = login1(username,password)
         request.session['user_id']=username
-        # print(x)
-        # print(username,password)
+
         if x == True:
             return redirect('/upload/upload')
     return render(request,'login.html')
@@ -46,27 +45,14 @@ def upload(request):
             cur.execute(sql2, login_id)
 
             faculty_name = cur.fetchone()
-            # print('batch year', batch_year)
-            # print(faculty_name)
+
             sql3="SELECT DISTINCT batch_year FROM faculty_batch WHERE faculty_name = %s"
             cur.execute(sql3,faculty_name)
             batch_years=cur.fetchall()
-            # print(batch_years)
+ 
             options=[]
             for batch_year in batch_years:
-                # sql4 = "SELECT DISTINCT semester FROM result_data WHERE Batch_Year = %s"
-                # cur.execute(sql4, batch_year)
-                # option = cur.fetchall()
-                # sems = []
-                # for i in option:
-                #     sems.append(i[0])#[1,2,3,4]
-
-                # comp=[]
-                # acc_semester=[1,2,3,4,5,6,7,8]
-                # for i in acc_semester:
-                #     if i not in sems:
-                #         comp.append(i)
-                # options[batch_year[0]]=comp #{2020-2024:[8],2021-2025:[6,7,8],2022-2026:[5,6,7,8],2023-2027:[2,3,4,5,6,7,8]}
+                
                 options.append(batch_year[0])
         return render(request, "upload.html",{'batch_semesters': options})
 
@@ -120,7 +106,6 @@ def download_excel(request):
             cur.execute(sql2, login_id)
 
             faculty_name = cur.fetchone()
-            # print('batch year', batch_year)
            
             sql3="SELECT DISTINCT batch_year FROM faculty_batch WHERE faculty_name = %s"
             cur.execute(sql3,faculty_name)
@@ -133,10 +118,10 @@ def download_excel(request):
                     option = cur.fetchall()
                     sems = []
                     for i in option:
-                        sems.append(i[0])#[1,2,3,4]
+                        sems.append(i[0])
                     sems=sorted(sems)
                     options[batch_year[0]]=['SELECT A SEMESTER']+sems
-            # print('get options:',options)
+
         return render(request,'download_excel.html', {'batch_semesters' : options})
 
     if request.method=='POST':
@@ -211,10 +196,10 @@ def grade_analysis(request):
                     option = cur.fetchall()
                     sems = []
                     for i in option:
-                        sems.append(i[0])#[1,2,3,4]
+                        sems.append(i[0])
                     sems=sorted(sems)
                     options[batch_year[0]]=['SELECT A SEMESTER']+sems
-            # print('get options:',options)
+
         return render(request, 'grade_analysis.html', {'batch_semesters' : options})
 
     if request.method == "POST":
@@ -232,7 +217,6 @@ def grade_analysis(request):
             cur.execute(sql2, login_id)
 
             faculty_name = cur.fetchone()
-            # print('batch year', batch_year)
            
             sql3="SELECT DISTINCT batch_year FROM faculty_batch WHERE faculty_name = %s"
             cur.execute(sql3,faculty_name)
@@ -245,7 +229,7 @@ def grade_analysis(request):
                     option = cur.fetchall()
                     sems = []
                     for i in option:
-                        sems.append(i[0])#[1,2,3,4]
+                        sems.append(i[0])
                     sems=sorted(sems)
                     options[batch_year[0]]=['SELECT A SEMESTER']+sems
 
@@ -255,7 +239,7 @@ def grade_analysis(request):
 
             for item in res:
                 data.append(Data(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8], item[9], item[10], item[11], item[12], item[13], item[14], item[15], item[16], item[17], item[18]))
-            # print(res)
+
         return render(request, 'grade_analysis.html', {'col1' : col1, 'col2' : col2, 'col3' : col3, 'col4' : col4, "data" : data, 'batch_semesters' : options,'batch':batchYear,'sem':semester})
     
 def summary(request):
@@ -306,7 +290,6 @@ def overall_summary(request):
             cur.execute(sql2, login_id)
 
             faculty_name = cur.fetchone()
-            # print('batch year', batch_year)
            
             sql3="SELECT DISTINCT batch_year FROM faculty_batch WHERE faculty_name = %s"
             cur.execute(sql3,faculty_name)
@@ -319,10 +302,10 @@ def overall_summary(request):
                     option = cur.fetchall()
                     sems = []
                     for i in option:
-                        sems.append(i[0])#[1,2,3,4]
+                        sems.append(i[0])
                     sems=sorted(sems)
                     options[batch_year[0]]=['SELECT A SEMESTER']+sems
-            # print('get options:',options)
+
         return render(request, 'Overall_Summary.html', {'batch_semesters' : options})
     
     elif request.method == "POST":
@@ -340,7 +323,6 @@ def overall_summary(request):
             cur.execute(sql2, login_id)
 
             faculty_name = cur.fetchone()
-            # print('batch year', batch_year)
            
             sql3="SELECT DISTINCT batch_year FROM faculty_batch WHERE faculty_name = %s"
             cur.execute(sql3,faculty_name)
@@ -353,7 +335,7 @@ def overall_summary(request):
                     option = cur.fetchall()
                     sems = []
                     for i in option:
-                        sems.append(i[0])#[1,2,3,4]
+                        sems.append(i[0])
                     sems=sorted(sems)
                     options[batch_year[0]]=['SELECT A SEMESTER']+sems
 
@@ -392,7 +374,6 @@ def subject_summary(request):
             cur.execute(sql2, login_id)
 
             faculty_name = cur.fetchone()
-            # print('batch year', batch_year)
            
             sql3="SELECT DISTINCT batch_year FROM faculty_batch WHERE faculty_name = %s"
             cur.execute(sql3,faculty_name)
@@ -405,10 +386,10 @@ def subject_summary(request):
                     option = cur.fetchall()
                     sems = []
                     for i in option:
-                        sems.append(i[0])#[1,2,3,4]
+                        sems.append(i[0])
                     sems=sorted(sems)
                     options[batch_year[0]]=['SELECT A SEMESTER']+sems
-            # print('get options:',options)
+
         return render(request, 'subjsum.html', {'batch_semesters' : options})
 
     if request.method == "POST":
@@ -439,7 +420,7 @@ def subject_summary(request):
                     option = cur.fetchall()
                     sems = []
                     for i in option:
-                        sems.append(i[0])#[1,2,3,4]
+                        sems.append(i[0])
                     sems=sorted(sems)
                     options[batch_year[0]]=['SELECT A SEMESTER']+sems
         
