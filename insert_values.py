@@ -65,7 +65,7 @@ def CGPA(register_no):
             '''
     cur.execute(select)
     data = cur.fetchone()
-    # print(data)
+
     if data !=(None,None):
         return round(data[0] / data[1], 3)
     else:
@@ -114,11 +114,6 @@ def Backlogs(register_no, semester):
                 count += 1
                 history_of_arrears = '1'
 
-    # print('REGISTERNO:',register_no)
-    # print(data)
-    # print(hoa)
-    # print('After:',history_of_arrears)
-    # print('---------------------------')
     return count, history_of_arrears
 
 
@@ -308,10 +303,6 @@ def ResultData(year, batch_year, semester, excel_file):
     #   PRIMARY KEY(Register_No, Course_Code)
 
     column_name, column_values = reading_excel(excel_file)
-    # print('COLUMN NAMES')
-    # print(column_name)
-    # print('COLUMN VALUES')
-    # print(column_values)
     data = []
    
     # print(column_values)
@@ -357,7 +348,7 @@ def Student(batch_year, semester, excel_file):
     curr_stds=f'''SELECT * FROM Student where batch_year="{batch_year}"'''
     cur.execute(curr_stds)
     student=cur.fetchall()
-    # print(data)
+
     if semester==1:
         insert = '''INSERT INTO Student(Register_No, Name, Batch_Year) VALUES ( %s, %s, %s)'''
         cur.executemany(insert, data)
@@ -416,8 +407,6 @@ def Grades(batch_year, semester, excel_file):
     column_name, column_values = reading_excel(excel_file)
 
     data = [(column_values[0][index], GPA(column_values[0][index],semester), Backlogs(column_values[0][index],semester)[0],CGPA(column_values[0][index]), Backlogs(column_values[0][index],semester)[1], batch_year) for index in range(len(column_values[0]))]
-    # print(column_values[0])
-    # print('backlogs')
     cur_data=f'''
             SELECT * FROM GRADES where batch_year="{batch_year}"'''
     cur.execute(cur_data)
@@ -476,9 +465,8 @@ def Grades(batch_year, semester, excel_file):
 
 def upgrade(year, batch_year, semester, excel_file):
     column_name, column_values = reading_excel(excel_file)
-    # print('COLUMN VALUES')
     excel_data = []
-    # print(column_name,column_values)
+
     for new_index in range(2, len(column_name)):
         for index in range(len(column_values[0])):
             if column_values[new_index][index] == 'U' or column_values[new_index][index] == 'RA' or column_values[new_index][index] == 'AB' or column_values[new_index][index] == 'WH' or column_values[new_index][index] == 'SA':
@@ -494,7 +482,6 @@ def upgrade(year, batch_year, semester, excel_file):
                 excel_data.append((column_values[0][index], column_name[new_index], column_values[new_index][index], item, batch_year,semester))
 
     for i in excel_data:
-        # print(i)
         upgrade = f'''
                 UPDATE result_data
                 set grade = '{i[2]}'
@@ -581,72 +568,3 @@ def login1(uname, pword):
 
     except InvalidUsernameorPassword as e:
         print("Invalid Username or Password: ",e)
-
-
-# # # Calling the functions to insert the
-# # # records into the relations
-# GradePoint()
-# CreditInfo()
-# # # ResultData()
-# # # Student()
-# # # Grades()
-# # # print('backlogs')
-# # # Backlogs(3122225002092)
-# # # upgrade()
-# # # # Displaying the records
-
-# # # select = '''SELECT * FROM Grade_Point'''
-# # # cur.execute(select)
-# # # data = cur.fetchall()
-# # # print(data)
-
-# # # select = '''SELECT * FROM Credit_Info'''
-# # # cur.execute(select)
-# # # data = cur.fetchall()
-# # # print(data)
-
-# # # select = '''SELECT * FROM Result_Data'''
-# # # cur.execute(select)
-# # # data = cur.fetchall()
-# # # print(data)
-
-# # # select = '''SELECT * FROM Student'''
-# # # cur.execute(select)
-# # # data = cur.fetchall()
-# # # print(data)
-
-# # # select = '''SELECT * FROM Grades'''
-# # # cur.execute(select)
-# # # data = cur.fetchall()
-# # # print(data)
-
-# if __name__=='__main__':
-#         login = [(13, 'gayathriks@ssn.edu.in', 'ssnstaff@12', 'Faculty'),
-#                         (17, 'sofiajenniferj@ssn.edu.in', 'ssnstaff@16', 'Faculty'),
-#                         (25, 'sornavallig@ssn.edu.in', 'ssnstaff@24', 'Faculty')]
-
-#         for data in login:
-#             insert_into_login(data[0], data[1], data[2], data[3])
-
-#         faculty_table_data = [
-#                             ('K. S. Gayathri', 13),
-#                             ('J. Sofia Jennifer', 17),
-#                             ('G. Sornavalli', 25),
-#                         ]
-#         for data in faculty_table_data:
-#             print(data)
-#             insert_into_faculty(data[0], data[1])
-
-#         faculty_batch_status=[
-#                             ('K. S. Gayathri', '2023-2027','permanent'),
-#                             ('J. Sofia Jennifer', '2021-2025','permanent'),
-#                             ('G. Sornavalli', '2023-2027','temporary'),
-#                             ('G. Sornavalli', '2022-2026','permanent'),
-#                             ('G. Sornavalli', '2021-2025','temporary'),
-#                             ('G. Sornavalli', '2020-2024','temporary'),
-                            
-#                         ]
-
-#         for data in faculty_batch_status:
-#             print(data)
-#             insert_into_faculty_batch(data[0], data[1],data[2])

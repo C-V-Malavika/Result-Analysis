@@ -52,8 +52,6 @@ def Deviation(register_no, sem,batch_year):
     
     return round((data - average_GPA), 3)
 
-# print(Deviation(205002123, 1))
-
 
 def Grade_Count(grade, course_code,sem,batch_year):
 
@@ -75,7 +73,6 @@ def Grade_Count(grade, course_code,sem,batch_year):
 
     return result
 
-#print(Grade_Count('O', 'UIT2201',2,'2022-2026'))
 
 def Total_Grades(course_code, semester,batch_year):
     """
@@ -107,8 +104,6 @@ def Registered(course_code,semester,batch_year):
 
     return result
 
-#print(Registered('UIT2201',2,'2022-2026'))
-
 
 def Passed(course_code,sem,batch_year):
 
@@ -119,7 +114,6 @@ def Passed(course_code,sem,batch_year):
 
     return Registered(course_code,sem,batch_year) - (Grade_Count('U', course_code,sem,batch_year)+Grade_Count('RA', course_code,sem,batch_year))
 
-# print(Passed('UIT1523','2020-2024'))
 
 def Reappear(course_code,sem,batch_year):
     """
@@ -144,8 +138,6 @@ def Pass_Percentage(course_code,sem,batch_year):
     if Registered(course_code,sem,batch_year) == 0:
         return 0
     return round(((Registered(course_code,sem,batch_year) - (Grade_Count('U', course_code,sem,batch_year)+Grade_Count('RA', course_code,sem,batch_year))) / Registered(course_code,sem,batch_year)) * 100, 2)
-
-# print(Pass_Percentage('UIT1523','2020-2024'))
 
 
 def Grade_Point_Average(course_code,batch_year):
@@ -175,8 +167,6 @@ def Grade_Point_Average(course_code,batch_year):
     if Registered(course_code,batch_year) == 0:
         return 0
     return round(grade_point_average / Registered(course_code,batch_year), 2)
-
-# print(Grade_Point_Average('UIT1523','2020-2024'))
 
 
 def Rank(register_no, sem,batch_year):
@@ -272,10 +262,8 @@ def semester_data(semester,batch_year):
     cur.execute(s)
     res=cur.fetchall()
     res=[data[0] for data in res]
-    #print(res)
 
     return res 
-#semester_data(2,'2022-2026')
 
 def tot_candid(sem,batch_year):
     '''This functions returns the headcount of
@@ -313,5 +301,5 @@ def Appeared(course_code, semester,batch_year):
                 AND rd.grade <>"{'-'}" '''
     cur.execute(s)
     res=cur.fetchone()[0]
-    #print(res)
+
     return res

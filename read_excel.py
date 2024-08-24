@@ -42,5 +42,3 @@ def filter_data(data):
     # Converting Register Number to integer type
     column_values[0] = [int(x) for x in column_values[0]]
     return [column_names, column_values]
-
-# print(filter_data())

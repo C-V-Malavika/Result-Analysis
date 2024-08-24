@@ -104,7 +104,6 @@ def Overall_Pass_Percentage(sem,batch_year):
 
     # Avoid division by zero error
     if tot == 0:
-        # print("Error: No candidates found for the given course code.")
         return None
 
     pass_percent = (allpass / tot) * 100
@@ -130,7 +129,7 @@ def GPA_count(semester,batch_year):
         res = cur.fetchone()
         mydb.commit()
         gpas[gpa_val] = res[0]
-        # print(gpas)
+
     return gpas
 
 def Reappear_count(semester,batch_year):
@@ -149,7 +148,7 @@ def Reappear_count(semester,batch_year):
         res = cur.fetchone()
         mydb.commit()
         RAs[ra_val] = res[0]
-        # print(RAs)
+
     return RAs
 
 def absentee_count(semester,batch_year):
@@ -164,7 +163,7 @@ def absentee_count(semester,batch_year):
                 and batch_year="{batch_year}"'''
     cur.execute(query)
     result = cur.fetchall()
-    # print(result)
+
     return result[0][0]
 
 

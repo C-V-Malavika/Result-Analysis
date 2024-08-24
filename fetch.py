@@ -160,7 +160,7 @@ def postresultdata(batch_year,semester,user_id):
             WHERE r.semester = %s
             AND r.batch_year = %s
         '''
-        # print(batch_year)
+
         data = (semester,batch_year)
         cur.execute(sql3,data)
         val = cur.fetchall()
@@ -213,7 +213,6 @@ def postresultdata(batch_year,semester,user_id):
                 sems=sorted(sems)
                 options[batch_year[0]]=['SELECT A SEMESTER']+sems
 
-        # print(options) 
         return column_names, data_dict, options, courses
 
 
@@ -372,9 +371,9 @@ def subjsum(semester,batch_year):
             Pass_Percentage(item,semester,batch_year)
         ]
         subsum.append(data)
-    #print(subsum)
+
     return subsum
-#subjsum(1,'2022-2026')
+
 
 def subjsum_col():
     return ['COURSE CODE','TOTAL','REGISTERED','APPEARED','ABSENT','REAPPEARING','WH',
